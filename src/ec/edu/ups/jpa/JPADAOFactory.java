@@ -10,22 +10,22 @@ public class JPADAOFactory extends DAOFactory{
 
 	@Override
 	public OperatorDAO getOperatorDAO() {
-		return null;
+		return new JPAOperatorDAO();
 	}
 
 	@Override
 	public PersonDAO getPersonDAO() {
-		return null;
+		return new JPAPersonDAO();
 	}
 
 	@Override
 	public PhoneDAO getPhoneDAO() {
-		return null;
+		return new JPAPhoneDAO();
 	}
 
 	@Override
 	public PhoneTypeDAO getPhoneTypeDAO() {
-		return null;
+		return new JPAPhoneTypeDAO();
 	}
 
 }

@@ -6,7 +6,7 @@ public interface GenericDAO<T, ID> {
 	
 	public void create(T entity);
 	
-	public void read(ID id);
+	public T read(ID id);
 	
 	public void update(T entity);
 	
@@ -14,6 +14,7 @@ public interface GenericDAO<T, ID> {
 	
 	public void deleteByID(ID id);
 	
-	public List<T> find(String[] attributes, String[] values, String order, 
-			int index, int size, boolean isDistinct);
+	public List<T> find(String order,int index, int size);
+	
+	public List<T> findByPath(String[][] attributes, String[] values, String order, int index, int size, boolean isDistinct);
 }
