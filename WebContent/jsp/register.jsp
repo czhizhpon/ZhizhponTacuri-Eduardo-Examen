@@ -25,7 +25,7 @@
 	<div class="container">
 		<div id="notice" class="row m-4"></div>
 		<div class="row">
-			<div class="col-6">
+			<div class="col-5">
 				<div>
 					<h2>Datos personales</h2>
 				    <form id="user-form">
@@ -55,18 +55,18 @@
 				    </form>
 			    </div>
 		    </div>
-		    <div class="col-6" id="phones">
+		    <div class="col-7">
 		    	<h2>Teléfonos</h2>
-	    		<form class="row">
+	    		<form class="row" id="phone-form">
 	    			<div class="col-12">
 	    			<div class="form-group row">
 	    				<div class="col-4">
 							<label for="number">Número:</label>
-							<input type="text" class="form-control" id="number"/>
+							<input type="text" class="form-control" id="number" name="number"/>
 						</div>
 	    				<div class="col-4">
 			    			<label for="operator_id" class="">Operadora:</label>
-							<select name="operator_id" id="operator_id" class="form-control">
+							<select name="operator.id" id="operator_id" class="form-control">
 								<c:forEach var="operator" items="${operators}">
 					  				<option value="${operator.id}">${operator.name}</option>
 					  			</c:forEach>
@@ -74,23 +74,23 @@
 						</div>
 						<div class="col-4">
 			    			<label for="phone_type_id" class="">Tipo:</label>
-							<select name="phone_type_id" id="phone_type_id" class="form-control">
+							<select name="phoneType.id" id="phone_type_id" class="form-control">
 					  			<c:forEach var="pht" items="${phoneTypes}">
 					  				<option value="${pht.id}">${pht.name}</option>
 					  			</c:forEach>
 							</select>
+							<input type="hidden" name="person.id" value="0">
 						</div>
 					</div>
-					<button type="button" class="btn btn-outline-info btn-block" onclick="addPhoneForm();"> + </button>
+					<button type="button" id="create-phone" class="btn btn-outline-info btn-block" onclick="createPhone();" disabled> + </button>
 					</div>
 		    	</form>
 		    	
 		    	<div class="row">
-		    		<div id="phones" class="col-12">
-		    		
-		    		</div>
-		    	</div>
-		    </div>
+	    		<div id="phones" class="col-12">
+	    		</div>
+	    	</div>
+	    	</div>
 	    </div>
     </div>
 </body>

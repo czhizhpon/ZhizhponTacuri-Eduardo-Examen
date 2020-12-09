@@ -57,8 +57,13 @@ public class CreatePhone extends HttpServlet {
 			ph.setPerson(person);
 			if(!phoneDAO.create(ph).equals("0")) {
 				response.getWriter().append("notice:El teléfono " + number + " ya existe.");
+				return;
+			}else {
+				String[][] attributes = {{"number"}};
+				String[] values = {"equal&" + ph.getNumber()};
+				ph = phoneDAO.findByPath(attributes, values, null, 0, 1, false).get(0);
+				response.getWriter().append("success:" + ph.getId());
 			}
-			response.getWriter().append("success:Usuario registrado");
 		} catch (Exception e) {
 			response.getWriter().append("notice:No se pudo registrar el teléfono");
 		}

@@ -40,10 +40,8 @@ public class RegisterPerson extends HttpServlet {
 		try {
 			List<Operator> operators = operatorDAO.find(null, 0, 0);
 			List<PhoneType> phoneTypes = phoneTypeDAO.find(null, 0, 0);
-			System.out.println(operators);
 			request.setAttribute("operators", operators);
 			request.setAttribute("phoneTypes", phoneTypes);
-			
 			getServletContext().getRequestDispatcher("/jsp/register.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

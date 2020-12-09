@@ -15,3 +15,13 @@ function createPhoneType(){
 		document.getElementById("notice").innerHTML = res;
 	});
 }
+
+function searchByNumber(){
+	var s = document.getElementById("phone.number").value;
+	location.href = "ListUsersByPhone?s=" + s;
+}
+
+function searchByIdCard(){
+	var s = document.getElementById("person.idCard").value;
+	location.href = "ListPersonByIdCard?s=" + s;
+}

@@ -1,4 +1,4 @@
-package ec.edu.ups.controller.person;
+package ec.edu.ups.controller.phone;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ec.edu.ups.dao.DAOFactory;
+import ec.edu.ups.dao.PhoneDAO;
+
 /**
- * Servlet implementation class ListPerson
+ * Servlet implementation class RemovePhone
  */
-@WebServlet("/ListPerson")
-public class ListPerson extends HttpServlet {
+@WebServlet("/RemovePhone")
+public class RemovePhone extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private PhoneDAO phoneDAO;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListPerson() {
+    public RemovePhone() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +29,9 @@ public class ListPerson extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		 phoneDAO = DAOFactory.getFactory().getPhoneDAO();
+		 phoneDAO.deleteByID(Integer.parseInt(request.getParameter("phone_id")));
+		 response.getWriter().append("success:Se ha eliminado");
 	}
 
 }
