@@ -1,9 +1,11 @@
 package ec.edu.ups.jpa;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -25,18 +27,20 @@ public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID>{
 	}
 	
 	@Override
-	public void create(T entity) {
+	public String create(T entity) {
+		String code = "0";
 		em.getTransaction().begin();
 		try {
 			em.persist(entity);
 			em.getTransaction().commit();
-		} catch (Exception e) {
-			System.out.println(">>>> ERROR>JPAGenericDAO:create: " + e);
+		} catch (PersistenceException  e) {
+			System.out.println(">>>> ERROR>JPAGenericDAO:create: ");
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
+			code =  getErrorCode(e);
 		}
-		
+		return code + "";
 	}
 
 	@Override
@@ -174,11 +178,27 @@ public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID>{
 		case ">":
 			sig = criteriaBuilder.greaterThan(exp, keys[1]);
 			break;
+		case "equal":
+			sig = criteriaBuilder.equal(exp, keys[1]);
+			break;
 		default:
 			System.out.println(">>>> ERROR>JPAGenericDAO:getSig: No se encuentra la opción: " + keys[0]);
 			break;
 		}
 		return sig;
 
+	}
+	
+	protected String getErrorCode(RuntimeException e) {
+	    Throwable throwable = e;
+	    while (throwable != null && !(throwable instanceof SQLException)) {
+	        throwable = throwable.getCause();
+	    }
+	    if (throwable instanceof SQLException) {
+	        SQLException sqlex = (SQLException) throwable;
+	        String errorCode = sqlex.getErrorCode() + "";
+	        return errorCode;
+	    }
+	    return "NONE";
 	}
 }
